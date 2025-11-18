@@ -14,6 +14,7 @@ from functools import lru_cache
 from typing import Literal, Optional
 
 import pandas as pd
+import streamlit as st
 
 from config import (
     get_data_path,
@@ -23,7 +24,69 @@ from config import (
     CASHFLOW_FILE,
     OP_KPI_FILE,
     MODEL_ASSUMPTIONS_FILE,
+    DATA_DIR,
 )
+ASSUMPTIONS_PATH = DATA_DIR / "assumptions_register.csv"
+
+MODEL_DRIVER_KEYS = [
+    "market_households",
+    "household_penetration_y1",
+    "household_penetration_y2",
+    "household_penetration_y3",
+    "visits_per_household_week",
+    "avg_basket_size_y1",
+    "gross_margin_target",
+    "shrink_pct_sales",
+    "vendor_rebates_pct_sales",
+    "store_payroll_pct_sales",
+    "payroll_burden_pct_wages",
+    "marketing_pct_sales",
+    "repairs_maintenance_pct_sales",
+    "inventory_days_on_hand",
+    "ap_days_payable",
+    "construction_loan_commitment",
+    "construction_rate_annual",
+    "permanent_loan_rate",
+    "bridge_loan_rate",
+    "dscr_min_target",
+    "inflation_general",
+    "inflation_wages",
+    "inflation_food_cost",
+    "discount_rate_npv",
+    "cash_runway_target_months",
+]
+
+CASE_TO_COLUMN = {
+    "Conservative": "low_case",
+    "Likely": "base_value",
+    "Aggressive": "high_case",
+}
+
+
+@st.cache_data(show_spinner=False)
+def load_assumptions_register() -> pd.DataFrame:
+    """Load the full assumptions register from CSV."""
+    return pd.read_csv(ASSUMPTIONS_PATH)
+
+
+def save_assumptions_register(df: pd.DataFrame) -> None:
+    """Persist updated assumptions and clear the cache for other sessions."""
+    df.to_csv(ASSUMPTIONS_PATH, index=False)
+    load_assumptions_register.clear()
+
+
+def get_model_assumptions(case: str = "Likely") -> dict[str, float]:
+    """Return the driver dict consumed by the financial model."""
+    df = load_assumptions_register()
+    column = CASE_TO_COLUMN.get(case, "base_value")
+    drivers = df[df["item_key"].isin(MODEL_DRIVER_KEYS)].copy()
+    return {
+        row["item_key"]: float(row[column])
+        for _, row in drivers.iterrows()
+        if pd.notna(row[column])
+    }
+
+
 
 
 @lru_cache(maxsize=None)
