@@ -48,7 +48,7 @@ def main() -> None:
     inject_css()
 
     # Sidebar navigation
-    st.sidebar.title("Navigation")
+    st.sidebar.header("Navigation")
     section_map = _build_section_map()
     if not section_map:
         st.sidebar.error("No navigation routes are configured.")
@@ -56,7 +56,13 @@ def main() -> None:
     default_section, _default_page = _default_selection(section_map)
     if "nav_section" not in st.session_state:
         st.session_state["nav_section"] = default_section
-    section = st.sidebar.selectbox("Section", list(section_map.keys()), key="nav_section")
+    st.sidebar.markdown('<p class="sidebar-label">Section</p>', unsafe_allow_html=True)
+    section = st.sidebar.selectbox(
+        "Section",
+        list(section_map.keys()),
+        key="nav_section",
+        label_visibility="collapsed",
+    )
     pages_for_section = section_map[section]
     page_state_key = "nav_page"
     if (
@@ -66,7 +72,13 @@ def main() -> None:
     ):
         st.session_state[page_state_key] = pages_for_section[0]
     st.session_state["nav_page_section"] = section
-    selected_page = st.sidebar.radio("Page", pages_for_section, key=page_state_key)
+    st.sidebar.markdown('<p class="sidebar-label">Page</p>', unsafe_allow_html=True)
+    selected_page = st.sidebar.radio(
+        "Page",
+        pages_for_section,
+        key=page_state_key,
+        label_visibility="collapsed",
+    )
 
     # Render selected page
     module_name = PAGE_ROUTES[selected_page]
