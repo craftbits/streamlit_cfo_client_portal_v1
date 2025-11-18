@@ -53,6 +53,16 @@ PAGE_ROUTES = {
     "Reference": None,
 }
 
+# Navigation is organised into high-level sections for the sidebar.
+# Each tuple contains the section label and the ordered list of pages
+# (keys from ``PAGE_ROUTES``) that belong to that section.
+NAV_SECTIONS: list[tuple[str, list[str]]] = [
+    ("Overview", ["Home"]),
+    ("Management Reporting", ["Financial Statements", "Comparison", "Review"]),
+    ("Performance & Planning", ["Cash Flow", "Ratio Analysis", "Financial Model"]),
+    ("Knowledge Base", ["Tools", "Resources", "Links", "Directories", "Reference"]),
+]
+
 
 def get_data_path(filename: str) -> Path:
     """Return the full path to a data file in the ``data`` directory.

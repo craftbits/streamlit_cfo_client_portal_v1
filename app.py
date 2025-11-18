@@ -14,8 +14,26 @@ from __future__ import annotations
 import importlib
 import streamlit as st
 
-from config import PAGE_ROUTES
+from config import PAGE_ROUTES, NAV_SECTIONS
 from layout import inject_css
+
+
+def _build_section_map() -> dict[str, list[str]]:
+    """Return an ordered mapping of sections to the pages they contain."""
+    section_map: dict[str, list[str]] = {}
+    for section, pages in NAV_SECTIONS:
+        valid_pages = [page for page in pages if page in PAGE_ROUTES]
+        if valid_pages:
+            section_map[section] = valid_pages
+    return section_map
+
+
+def _default_selection(section_map: dict[str, list[str]]) -> tuple[str, str]:
+    """Determine the default section/page combination."""
+    for section, pages in NAV_SECTIONS:
+        if section in section_map:
+            return section, section_map[section][0]
+    raise ValueError("No pages configured in NAV_SECTIONS.")
 
 
 def main() -> None:
@@ -31,8 +49,24 @@ def main() -> None:
 
     # Sidebar navigation
     st.sidebar.title("Navigation")
-    page_names = list(PAGE_ROUTES.keys())
-    selected_page = st.sidebar.selectbox("Select a page", page_names)
+    section_map = _build_section_map()
+    if not section_map:
+        st.sidebar.error("No navigation routes are configured.")
+        return
+    default_section, _default_page = _default_selection(section_map)
+    if "nav_section" not in st.session_state:
+        st.session_state["nav_section"] = default_section
+    section = st.sidebar.selectbox("Section", list(section_map.keys()), key="nav_section")
+    pages_for_section = section_map[section]
+    page_state_key = "nav_page"
+    if (
+        page_state_key not in st.session_state
+        or st.session_state.get("nav_page_section") != section
+        or st.session_state[page_state_key] not in pages_for_section
+    ):
+        st.session_state[page_state_key] = pages_for_section[0]
+    st.session_state["nav_page_section"] = section
+    selected_page = st.sidebar.radio("Page", pages_for_section, key=page_state_key)
 
     # Render selected page
     module_name = PAGE_ROUTES[selected_page]
