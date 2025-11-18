@@ -35,7 +35,7 @@ MODEL_ASSUMPTIONS_FILE = "model_assumptions.csv"
 
 # Mapping of page names to the python module implementing the view. The
 # key is used for sidebar navigation and the value is the module name
-# under ``pages``. When adding new pages update this dict.
+# under ``PAGE_MODULE_PACKAGE``. When adding new pages update this dict.
 PAGE_ROUTES = {
     "Home": "home",
     "Financial Statements": "financial_statements",
@@ -62,6 +62,10 @@ NAV_SECTIONS: list[tuple[str, list[str]]] = [
     ("Performance & Planning", ["Cash Flow", "Ratio Analysis", "Financial Model"]),
     ("Knowledge Base", ["Tools", "Resources", "Links", "Directories", "Reference"]),
 ]
+
+# Directory/package that stores the Streamlit page modules. Renaming this
+# prevents Streamlit's automatic page picker from rendering on the main UI.
+PAGE_MODULE_PACKAGE = "views"
 
 
 def get_data_path(filename: str) -> Path:

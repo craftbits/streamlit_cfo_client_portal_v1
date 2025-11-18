@@ -14,7 +14,7 @@ from __future__ import annotations
 import importlib
 import streamlit as st
 
-from config import PAGE_ROUTES, NAV_SECTIONS
+from config import PAGE_ROUTES, NAV_SECTIONS, PAGE_MODULE_PACKAGE
 from layout import inject_css
 
 
@@ -77,7 +77,7 @@ def main() -> None:
         st.title(selected_page)
         st.info("This section is under development. Check back soon!")
     else:
-        page_module = importlib.import_module(f"pages.{module_name}")
+        page_module = importlib.import_module(f"{PAGE_MODULE_PACKAGE}.{module_name}")
         # Each page module should expose a ``render`` function
         if hasattr(page_module, "render"):
             page_module.render()
