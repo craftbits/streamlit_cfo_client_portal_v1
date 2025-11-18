@@ -1,0 +1,22 @@
+date,period,scenario,item_type,description,amount
+2025-01-01,2025-01,Actual,Opening Cash,Beginning cash balance,300000
+2025-01-21,2025-01,Actual,Investing,Capex – equipment & improvements,-50000
+2025-01-26,2025-01,Actual,Owner Draw,Owner distribution,-10000
+2025-02-01,2025-02,Actual,Opening Cash,Beginning cash balance,240000
+2025-02-11,2025-02,Actual,Financing,Loan draw,50000
+2025-02-26,2025-02,Actual,Owner Draw,Owner distribution,-10000
+2025-03-01,2025-03,Actual,Opening Cash,Beginning cash balance,280000
+2025-03-11,2025-03,Actual,Financing,Loan draw,50000
+2025-03-26,2025-03,Actual,Owner Draw,Owner distribution,-10000
+2025-04-01,2025-04,Actual,Opening Cash,Beginning cash balance,320000
+2025-04-21,2025-04,Actual,Investing,Capex – equipment & improvements,-50000
+2025-04-26,2025-04,Actual,Owner Draw,Owner distribution,-10000
+2025-05-01,2025-05,Actual,Opening Cash,Beginning cash balance,260000
+2025-05-26,2025-05,Actual,Owner Draw,Owner distribution,-10000
+2025-06-01,2025-06,Actual,Opening Cash,Beginning cash balance,250000
+2025-06-26,2025-06,Actual,Owner Draw,Owner distribution,-10000
+2025-07-01,2025-07,Actual,Opening Cash,Beginning cash balance,240000
+2025-07-21,2025-07,Actual,Investing,Capex – equipment & improvements,-50000
+2025-07-26,2025-07,Actual,Owner Draw,Owner distribution,-10000
+2025-08-01,2025-08,Actual,Opening Cash,Beginning cash balance,180000
+2025-08-26,2025-08,Actual,Owner Draw,Owner distribution,-10000

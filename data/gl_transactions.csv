@@ -1,0 +1,193 @@
+txn_id,txn_date,period,scenario,account_number,account_id,department,location,description,amount,source
+TXN-2025-01-001,2025-01-05,2025-01,Actual,4000,4000,Main,Headquarters,Sales – Sales – Produce,50000.0,POS
+TXN-2025-01-002,2025-01-06,2025-01,Actual,5000,5000,Main,Headquarters,COGS – COGS – Produce,-33500.0,Inventory
+TXN-2025-01-003,2025-01-05,2025-01,Actual,4010,4010,Main,Headquarters,Sales – Sales – Meat & Seafood,70000.0,POS
+TXN-2025-01-004,2025-01-06,2025-01,Actual,5010,5010,Main,Headquarters,COGS – COGS – Meat & Seafood,-46900.0,Inventory
+TXN-2025-01-005,2025-01-05,2025-01,Actual,4020,4020,Main,Headquarters,Sales – Sales – Dairy & Eggs,40000.0,POS
+TXN-2025-01-006,2025-01-06,2025-01,Actual,5020,5020,Main,Headquarters,COGS – COGS – Dairy & Eggs,-26800.0,Inventory
+TXN-2025-01-007,2025-01-05,2025-01,Actual,4030,4030,Main,Headquarters,Sales – Sales – Bakery,30000.0,POS
+TXN-2025-01-008,2025-01-06,2025-01,Actual,5030,5030,Main,Headquarters,COGS – COGS – Bakery,-20100.0,Inventory
+TXN-2025-01-009,2025-01-05,2025-01,Actual,4040,4040,Main,Headquarters,Sales – Sales – Deli & Prepared,25000.0,POS
+TXN-2025-01-010,2025-01-06,2025-01,Actual,5040,5040,Main,Headquarters,COGS – COGS – Deli & Prepared,-16750.0,Inventory
+TXN-2025-01-011,2025-01-05,2025-01,Actual,4050,4050,Main,Headquarters,Sales – Sales – Frozen Foods,35000.0,POS
+TXN-2025-01-012,2025-01-06,2025-01,Actual,5050,5050,Main,Headquarters,COGS – COGS – Frozen Foods,-23450.0,Inventory
+TXN-2025-01-013,2025-01-05,2025-01,Actual,4060,4060,Main,Headquarters,Sales – Sales – Beverages & Snacks,45000.0,POS
+TXN-2025-01-014,2025-01-06,2025-01,Actual,5060,5060,Main,Headquarters,COGS – COGS – Beverages & Snacks,-30150.0,Inventory
+TXN-2025-01-015,2025-01-05,2025-01,Actual,4070,4070,Main,Headquarters,Sales – Sales – Non‑Food,15000.0,POS
+TXN-2025-01-016,2025-01-06,2025-01,Actual,5070,5070,Main,Headquarters,COGS – COGS – Non‑Food,-10050.0,Inventory
+TXN-2025-01-017,2025-01-26,2025-01,Actual,6200,6200,Main,Headquarters,Salaries & Wages,-33333.33,Payroll
+TXN-2025-01-018,2025-01-26,2025-01,Actual,6210,6210,Main,Headquarters,Payroll Taxes,-33333.33,Payroll
+TXN-2025-01-019,2025-01-26,2025-01,Actual,6220,6220,Main,Headquarters,Employee Benefits,-33333.33,Payroll
+TXN-2025-01-020,2025-01-02,2025-01,Actual,6300,6300,Main,Headquarters,Rent Expense,-16335.0,Manual
+TXN-2025-01-021,2025-01-11,2025-01,Actual,6310,6310,Main,Headquarters,Utilities,-10000.0,Utility
+TXN-2025-01-022,2025-01-16,2025-01,Actual,6100,6100,Main,Headquarters,Advertising & Marketing,-5000.0,Marketing
+TXN-2025-01-023,2025-01-13,2025-01,Actual,6340,6340,Main,Headquarters,Insurance,-333.33,Insurance
+TXN-2025-01-024,2025-01-29,2025-01,Actual,7000,7000,Main,Headquarters,Interest Expense,-5000.0,Manual
+TXN-2025-02-025,2025-02-05,2025-02,Actual,4000,4000,Main,Headquarters,Sales – Sales – Produce,51000.0,POS
+TXN-2025-02-026,2025-02-06,2025-02,Actual,5000,5000,Main,Headquarters,COGS – COGS – Produce,-34170.0,Inventory
+TXN-2025-02-027,2025-02-05,2025-02,Actual,4010,4010,Main,Headquarters,Sales – Sales – Meat & Seafood,71400.0,POS
+TXN-2025-02-028,2025-02-06,2025-02,Actual,5010,5010,Main,Headquarters,COGS – COGS – Meat & Seafood,-47838.0,Inventory
+TXN-2025-02-029,2025-02-05,2025-02,Actual,4020,4020,Main,Headquarters,Sales – Sales – Dairy & Eggs,40800.0,POS
+TXN-2025-02-030,2025-02-06,2025-02,Actual,5020,5020,Main,Headquarters,COGS – COGS – Dairy & Eggs,-27336.0,Inventory
+TXN-2025-02-031,2025-02-05,2025-02,Actual,4030,4030,Main,Headquarters,Sales – Sales – Bakery,30600.0,POS
+TXN-2025-02-032,2025-02-06,2025-02,Actual,5030,5030,Main,Headquarters,COGS – COGS – Bakery,-20502.0,Inventory
+TXN-2025-02-033,2025-02-05,2025-02,Actual,4040,4040,Main,Headquarters,Sales – Sales – Deli & Prepared,25500.0,POS
+TXN-2025-02-034,2025-02-06,2025-02,Actual,5040,5040,Main,Headquarters,COGS – COGS – Deli & Prepared,-17085.0,Inventory
+TXN-2025-02-035,2025-02-05,2025-02,Actual,4050,4050,Main,Headquarters,Sales – Sales – Frozen Foods,35700.0,POS
+TXN-2025-02-036,2025-02-06,2025-02,Actual,5050,5050,Main,Headquarters,COGS – COGS – Frozen Foods,-23919.0,Inventory
+TXN-2025-02-037,2025-02-05,2025-02,Actual,4060,4060,Main,Headquarters,Sales – Sales – Beverages & Snacks,45900.0,POS
+TXN-2025-02-038,2025-02-06,2025-02,Actual,5060,5060,Main,Headquarters,COGS – COGS – Beverages & Snacks,-30753.0,Inventory
+TXN-2025-02-039,2025-02-05,2025-02,Actual,4070,4070,Main,Headquarters,Sales – Sales – Non‑Food,15300.0,POS
+TXN-2025-02-040,2025-02-06,2025-02,Actual,5070,5070,Main,Headquarters,COGS – COGS – Non‑Food,-10251.0,Inventory
+TXN-2025-02-041,2025-02-26,2025-02,Actual,6200,6200,Main,Headquarters,Salaries & Wages,-34000.0,Payroll
+TXN-2025-02-042,2025-02-26,2025-02,Actual,6210,6210,Main,Headquarters,Payroll Taxes,-34000.0,Payroll
+TXN-2025-02-043,2025-02-26,2025-02,Actual,6220,6220,Main,Headquarters,Employee Benefits,-34000.0,Payroll
+TXN-2025-02-044,2025-02-02,2025-02,Actual,6300,6300,Main,Headquarters,Rent Expense,-16335.0,Manual
+TXN-2025-02-045,2025-02-11,2025-02,Actual,6310,6310,Main,Headquarters,Utilities,-10200.0,Utility
+TXN-2025-02-046,2025-02-16,2025-02,Actual,6100,6100,Main,Headquarters,Advertising & Marketing,-5100.0,Marketing
+TXN-2025-02-047,2025-02-13,2025-02,Actual,6340,6340,Main,Headquarters,Insurance,-340.0,Insurance
+TXN-2025-02-048,2025-03-01,2025-02,Actual,7000,7000,Main,Headquarters,Interest Expense,-5000.0,Manual
+TXN-2025-03-049,2025-03-05,2025-03,Actual,4000,4000,Main,Headquarters,Sales – Sales – Produce,52000.0,POS
+TXN-2025-03-050,2025-03-06,2025-03,Actual,5000,5000,Main,Headquarters,COGS – COGS – Produce,-34840.0,Inventory
+TXN-2025-03-051,2025-03-05,2025-03,Actual,4010,4010,Main,Headquarters,Sales – Sales – Meat & Seafood,72800.0,POS
+TXN-2025-03-052,2025-03-06,2025-03,Actual,5010,5010,Main,Headquarters,COGS – COGS – Meat & Seafood,-48776.0,Inventory
+TXN-2025-03-053,2025-03-05,2025-03,Actual,4020,4020,Main,Headquarters,Sales – Sales – Dairy & Eggs,41600.0,POS
+TXN-2025-03-054,2025-03-06,2025-03,Actual,5020,5020,Main,Headquarters,COGS – COGS – Dairy & Eggs,-27872.0,Inventory
+TXN-2025-03-055,2025-03-05,2025-03,Actual,4030,4030,Main,Headquarters,Sales – Sales – Bakery,31200.0,POS
+TXN-2025-03-056,2025-03-06,2025-03,Actual,5030,5030,Main,Headquarters,COGS – COGS – Bakery,-20904.0,Inventory
+TXN-2025-03-057,2025-03-05,2025-03,Actual,4040,4040,Main,Headquarters,Sales – Sales – Deli & Prepared,26000.0,POS
+TXN-2025-03-058,2025-03-06,2025-03,Actual,5040,5040,Main,Headquarters,COGS – COGS – Deli & Prepared,-17420.0,Inventory
+TXN-2025-03-059,2025-03-05,2025-03,Actual,4050,4050,Main,Headquarters,Sales – Sales – Frozen Foods,36400.0,POS
+TXN-2025-03-060,2025-03-06,2025-03,Actual,5050,5050,Main,Headquarters,COGS – COGS – Frozen Foods,-24388.0,Inventory
+TXN-2025-03-061,2025-03-05,2025-03,Actual,4060,4060,Main,Headquarters,Sales – Sales – Beverages & Snacks,46800.0,POS
+TXN-2025-03-062,2025-03-06,2025-03,Actual,5060,5060,Main,Headquarters,COGS – COGS – Beverages & Snacks,-31356.0,Inventory
+TXN-2025-03-063,2025-03-05,2025-03,Actual,4070,4070,Main,Headquarters,Sales – Sales – Non‑Food,15600.0,POS
+TXN-2025-03-064,2025-03-06,2025-03,Actual,5070,5070,Main,Headquarters,COGS – COGS – Non‑Food,-10452.0,Inventory
+TXN-2025-03-065,2025-03-26,2025-03,Actual,6200,6200,Main,Headquarters,Salaries & Wages,-34666.67,Payroll
+TXN-2025-03-066,2025-03-26,2025-03,Actual,6210,6210,Main,Headquarters,Payroll Taxes,-34666.67,Payroll
+TXN-2025-03-067,2025-03-26,2025-03,Actual,6220,6220,Main,Headquarters,Employee Benefits,-34666.67,Payroll
+TXN-2025-03-068,2025-03-02,2025-03,Actual,6300,6300,Main,Headquarters,Rent Expense,-16335.0,Manual
+TXN-2025-03-069,2025-03-11,2025-03,Actual,6310,6310,Main,Headquarters,Utilities,-10400.0,Utility
+TXN-2025-03-070,2025-03-16,2025-03,Actual,6100,6100,Main,Headquarters,Advertising & Marketing,-5200.0,Marketing
+TXN-2025-03-071,2025-03-13,2025-03,Actual,6340,6340,Main,Headquarters,Insurance,-346.67,Insurance
+TXN-2025-03-072,2025-03-29,2025-03,Actual,7000,7000,Main,Headquarters,Interest Expense,-5000.0,Manual
+TXN-2025-04-073,2025-04-05,2025-04,Actual,4000,4000,Main,Headquarters,Sales – Sales – Produce,53000.0,POS
+TXN-2025-04-074,2025-04-06,2025-04,Actual,5000,5000,Main,Headquarters,COGS – COGS – Produce,-35510.0,Inventory
+TXN-2025-04-075,2025-04-05,2025-04,Actual,4010,4010,Main,Headquarters,Sales – Sales – Meat & Seafood,74200.0,POS
+TXN-2025-04-076,2025-04-06,2025-04,Actual,5010,5010,Main,Headquarters,COGS – COGS – Meat & Seafood,-49714.0,Inventory
+TXN-2025-04-077,2025-04-05,2025-04,Actual,4020,4020,Main,Headquarters,Sales – Sales – Dairy & Eggs,42400.0,POS
+TXN-2025-04-078,2025-04-06,2025-04,Actual,5020,5020,Main,Headquarters,COGS – COGS – Dairy & Eggs,-28408.0,Inventory
+TXN-2025-04-079,2025-04-05,2025-04,Actual,4030,4030,Main,Headquarters,Sales – Sales – Bakery,31800.0,POS
+TXN-2025-04-080,2025-04-06,2025-04,Actual,5030,5030,Main,Headquarters,COGS – COGS – Bakery,-21306.0,Inventory
+TXN-2025-04-081,2025-04-05,2025-04,Actual,4040,4040,Main,Headquarters,Sales – Sales – Deli & Prepared,26500.0,POS
+TXN-2025-04-082,2025-04-06,2025-04,Actual,5040,5040,Main,Headquarters,COGS – COGS – Deli & Prepared,-17755.0,Inventory
+TXN-2025-04-083,2025-04-05,2025-04,Actual,4050,4050,Main,Headquarters,Sales – Sales – Frozen Foods,37100.0,POS
+TXN-2025-04-084,2025-04-06,2025-04,Actual,5050,5050,Main,Headquarters,COGS – COGS – Frozen Foods,-24857.0,Inventory
+TXN-2025-04-085,2025-04-05,2025-04,Actual,4060,4060,Main,Headquarters,Sales – Sales – Beverages & Snacks,47700.0,POS
+TXN-2025-04-086,2025-04-06,2025-04,Actual,5060,5060,Main,Headquarters,COGS – COGS – Beverages & Snacks,-31959.0,Inventory
+TXN-2025-04-087,2025-04-05,2025-04,Actual,4070,4070,Main,Headquarters,Sales – Sales – Non‑Food,15900.0,POS
+TXN-2025-04-088,2025-04-06,2025-04,Actual,5070,5070,Main,Headquarters,COGS – COGS – Non‑Food,-10653.0,Inventory
+TXN-2025-04-089,2025-04-26,2025-04,Actual,6200,6200,Main,Headquarters,Salaries & Wages,-35333.33,Payroll
+TXN-2025-04-090,2025-04-26,2025-04,Actual,6210,6210,Main,Headquarters,Payroll Taxes,-35333.33,Payroll
+TXN-2025-04-091,2025-04-26,2025-04,Actual,6220,6220,Main,Headquarters,Employee Benefits,-35333.33,Payroll
+TXN-2025-04-092,2025-04-02,2025-04,Actual,6300,6300,Main,Headquarters,Rent Expense,-16335.0,Manual
+TXN-2025-04-093,2025-04-11,2025-04,Actual,6310,6310,Main,Headquarters,Utilities,-10600.0,Utility
+TXN-2025-04-094,2025-04-16,2025-04,Actual,6100,6100,Main,Headquarters,Advertising & Marketing,-5300.0,Marketing
+TXN-2025-04-095,2025-04-13,2025-04,Actual,6340,6340,Main,Headquarters,Insurance,-353.33,Insurance
+TXN-2025-04-096,2025-04-29,2025-04,Actual,7000,7000,Main,Headquarters,Interest Expense,-5000.0,Manual
+TXN-2025-05-097,2025-05-05,2025-05,Actual,4000,4000,Main,Headquarters,Sales – Sales – Produce,54000.0,POS
+TXN-2025-05-098,2025-05-06,2025-05,Actual,5000,5000,Main,Headquarters,COGS – COGS – Produce,-36180.0,Inventory
+TXN-2025-05-099,2025-05-05,2025-05,Actual,4010,4010,Main,Headquarters,Sales – Sales – Meat & Seafood,75600.0,POS
+TXN-2025-05-100,2025-05-06,2025-05,Actual,5010,5010,Main,Headquarters,COGS – COGS – Meat & Seafood,-50652.0,Inventory
+TXN-2025-05-101,2025-05-05,2025-05,Actual,4020,4020,Main,Headquarters,Sales – Sales – Dairy & Eggs,43200.0,POS
+TXN-2025-05-102,2025-05-06,2025-05,Actual,5020,5020,Main,Headquarters,COGS – COGS – Dairy & Eggs,-28944.0,Inventory
+TXN-2025-05-103,2025-05-05,2025-05,Actual,4030,4030,Main,Headquarters,Sales – Sales – Bakery,32400.0,POS
+TXN-2025-05-104,2025-05-06,2025-05,Actual,5030,5030,Main,Headquarters,COGS – COGS – Bakery,-21708.0,Inventory
+TXN-2025-05-105,2025-05-05,2025-05,Actual,4040,4040,Main,Headquarters,Sales – Sales – Deli & Prepared,27000.0,POS
+TXN-2025-05-106,2025-05-06,2025-05,Actual,5040,5040,Main,Headquarters,COGS – COGS – Deli & Prepared,-18090.0,Inventory
+TXN-2025-05-107,2025-05-05,2025-05,Actual,4050,4050,Main,Headquarters,Sales – Sales – Frozen Foods,37800.0,POS
+TXN-2025-05-108,2025-05-06,2025-05,Actual,5050,5050,Main,Headquarters,COGS – COGS – Frozen Foods,-25326.0,Inventory
+TXN-2025-05-109,2025-05-05,2025-05,Actual,4060,4060,Main,Headquarters,Sales – Sales – Beverages & Snacks,48600.0,POS
+TXN-2025-05-110,2025-05-06,2025-05,Actual,5060,5060,Main,Headquarters,COGS – COGS – Beverages & Snacks,-32562.0,Inventory
+TXN-2025-05-111,2025-05-05,2025-05,Actual,4070,4070,Main,Headquarters,Sales – Sales – Non‑Food,16200.0,POS
+TXN-2025-05-112,2025-05-06,2025-05,Actual,5070,5070,Main,Headquarters,COGS – COGS – Non‑Food,-10854.0,Inventory
+TXN-2025-05-113,2025-05-26,2025-05,Actual,6200,6200,Main,Headquarters,Salaries & Wages,-36000.0,Payroll
+TXN-2025-05-114,2025-05-26,2025-05,Actual,6210,6210,Main,Headquarters,Payroll Taxes,-36000.0,Payroll
+TXN-2025-05-115,2025-05-26,2025-05,Actual,6220,6220,Main,Headquarters,Employee Benefits,-36000.0,Payroll
+TXN-2025-05-116,2025-05-02,2025-05,Actual,6300,6300,Main,Headquarters,Rent Expense,-16335.0,Manual
+TXN-2025-05-117,2025-05-11,2025-05,Actual,6310,6310,Main,Headquarters,Utilities,-10800.0,Utility
+TXN-2025-05-118,2025-05-16,2025-05,Actual,6100,6100,Main,Headquarters,Advertising & Marketing,-5400.0,Marketing
+TXN-2025-05-119,2025-05-13,2025-05,Actual,6340,6340,Main,Headquarters,Insurance,-360.0,Insurance
+TXN-2025-05-120,2025-05-29,2025-05,Actual,7000,7000,Main,Headquarters,Interest Expense,-5000.0,Manual
+TXN-2025-06-121,2025-06-05,2025-06,Actual,4000,4000,Main,Headquarters,Sales – Sales – Produce,55000.0,POS
+TXN-2025-06-122,2025-06-06,2025-06,Actual,5000,5000,Main,Headquarters,COGS – COGS – Produce,-36850.0,Inventory
+TXN-2025-06-123,2025-06-05,2025-06,Actual,4010,4010,Main,Headquarters,Sales – Sales – Meat & Seafood,77000.0,POS
+TXN-2025-06-124,2025-06-06,2025-06,Actual,5010,5010,Main,Headquarters,COGS – COGS – Meat & Seafood,-51590.0,Inventory
+TXN-2025-06-125,2025-06-05,2025-06,Actual,4020,4020,Main,Headquarters,Sales – Sales – Dairy & Eggs,44000.0,POS
+TXN-2025-06-126,2025-06-06,2025-06,Actual,5020,5020,Main,Headquarters,COGS – COGS – Dairy & Eggs,-29480.0,Inventory
+TXN-2025-06-127,2025-06-05,2025-06,Actual,4030,4030,Main,Headquarters,Sales – Sales – Bakery,33000.0,POS
+TXN-2025-06-128,2025-06-06,2025-06,Actual,5030,5030,Main,Headquarters,COGS – COGS – Bakery,-22110.0,Inventory
+TXN-2025-06-129,2025-06-05,2025-06,Actual,4040,4040,Main,Headquarters,Sales – Sales – Deli & Prepared,27500.0,POS
+TXN-2025-06-130,2025-06-06,2025-06,Actual,5040,5040,Main,Headquarters,COGS – COGS – Deli & Prepared,-18425.0,Inventory
+TXN-2025-06-131,2025-06-05,2025-06,Actual,4050,4050,Main,Headquarters,Sales – Sales – Frozen Foods,38500.0,POS
+TXN-2025-06-132,2025-06-06,2025-06,Actual,5050,5050,Main,Headquarters,COGS – COGS – Frozen Foods,-25795.0,Inventory
+TXN-2025-06-133,2025-06-05,2025-06,Actual,4060,4060,Main,Headquarters,Sales – Sales – Beverages & Snacks,49500.0,POS
+TXN-2025-06-134,2025-06-06,2025-06,Actual,5060,5060,Main,Headquarters,COGS – COGS – Beverages & Snacks,-33165.0,Inventory
+TXN-2025-06-135,2025-06-05,2025-06,Actual,4070,4070,Main,Headquarters,Sales – Sales – Non‑Food,16500.0,POS
+TXN-2025-06-136,2025-06-06,2025-06,Actual,5070,5070,Main,Headquarters,COGS – COGS – Non‑Food,-11055.0,Inventory
+TXN-2025-06-137,2025-06-26,2025-06,Actual,6200,6200,Main,Headquarters,Salaries & Wages,-36666.67,Payroll
+TXN-2025-06-138,2025-06-26,2025-06,Actual,6210,6210,Main,Headquarters,Payroll Taxes,-36666.67,Payroll
+TXN-2025-06-139,2025-06-26,2025-06,Actual,6220,6220,Main,Headquarters,Employee Benefits,-36666.67,Payroll
+TXN-2025-06-140,2025-06-02,2025-06,Actual,6300,6300,Main,Headquarters,Rent Expense,-16335.0,Manual
+TXN-2025-06-141,2025-06-11,2025-06,Actual,6310,6310,Main,Headquarters,Utilities,-11000.0,Utility
+TXN-2025-06-142,2025-06-16,2025-06,Actual,6100,6100,Main,Headquarters,Advertising & Marketing,-5500.0,Marketing
+TXN-2025-06-143,2025-06-13,2025-06,Actual,6340,6340,Main,Headquarters,Insurance,-366.67,Insurance
+TXN-2025-06-144,2025-06-29,2025-06,Actual,7000,7000,Main,Headquarters,Interest Expense,-5000.0,Manual
+TXN-2025-07-145,2025-07-05,2025-07,Actual,4000,4000,Main,Headquarters,Sales – Sales – Produce,56000.0,POS
+TXN-2025-07-146,2025-07-06,2025-07,Actual,5000,5000,Main,Headquarters,COGS – COGS – Produce,-37520.0,Inventory
+TXN-2025-07-147,2025-07-05,2025-07,Actual,4010,4010,Main,Headquarters,Sales – Sales – Meat & Seafood,78400.0,POS
+TXN-2025-07-148,2025-07-06,2025-07,Actual,5010,5010,Main,Headquarters,COGS – COGS – Meat & Seafood,-52528.0,Inventory
+TXN-2025-07-149,2025-07-05,2025-07,Actual,4020,4020,Main,Headquarters,Sales – Sales – Dairy & Eggs,44800.0,POS
+TXN-2025-07-150,2025-07-06,2025-07,Actual,5020,5020,Main,Headquarters,COGS – COGS – Dairy & Eggs,-30016.0,Inventory
+TXN-2025-07-151,2025-07-05,2025-07,Actual,4030,4030,Main,Headquarters,Sales – Sales – Bakery,33600.0,POS
+TXN-2025-07-152,2025-07-06,2025-07,Actual,5030,5030,Main,Headquarters,COGS – COGS – Bakery,-22512.0,Inventory
+TXN-2025-07-153,2025-07-05,2025-07,Actual,4040,4040,Main,Headquarters,Sales – Sales – Deli & Prepared,28000.0,POS
+TXN-2025-07-154,2025-07-06,2025-07,Actual,5040,5040,Main,Headquarters,COGS – COGS – Deli & Prepared,-18760.0,Inventory
+TXN-2025-07-155,2025-07-05,2025-07,Actual,4050,4050,Main,Headquarters,Sales – Sales – Frozen Foods,39200.0,POS
+TXN-2025-07-156,2025-07-06,2025-07,Actual,5050,5050,Main,Headquarters,COGS – COGS – Frozen Foods,-26264.0,Inventory
+TXN-2025-07-157,2025-07-05,2025-07,Actual,4060,4060,Main,Headquarters,Sales – Sales – Beverages & Snacks,50400.0,POS
+TXN-2025-07-158,2025-07-06,2025-07,Actual,5060,5060,Main,Headquarters,COGS – COGS – Beverages & Snacks,-33768.0,Inventory
+TXN-2025-07-159,2025-07-05,2025-07,Actual,4070,4070,Main,Headquarters,Sales – Sales – Non‑Food,16800.0,POS
+TXN-2025-07-160,2025-07-06,2025-07,Actual,5070,5070,Main,Headquarters,COGS – COGS – Non‑Food,-11256.0,Inventory
+TXN-2025-07-161,2025-07-26,2025-07,Actual,6200,6200,Main,Headquarters,Salaries & Wages,-37333.33,Payroll
+TXN-2025-07-162,2025-07-26,2025-07,Actual,6210,6210,Main,Headquarters,Payroll Taxes,-37333.33,Payroll
+TXN-2025-07-163,2025-07-26,2025-07,Actual,6220,6220,Main,Headquarters,Employee Benefits,-37333.33,Payroll
+TXN-2025-07-164,2025-07-02,2025-07,Actual,6300,6300,Main,Headquarters,Rent Expense,-16335.0,Manual
+TXN-2025-07-165,2025-07-11,2025-07,Actual,6310,6310,Main,Headquarters,Utilities,-11200.0,Utility
+TXN-2025-07-166,2025-07-16,2025-07,Actual,6100,6100,Main,Headquarters,Advertising & Marketing,-5600.0,Marketing
+TXN-2025-07-167,2025-07-13,2025-07,Actual,6340,6340,Main,Headquarters,Insurance,-373.33,Insurance
+TXN-2025-07-168,2025-07-29,2025-07,Actual,7000,7000,Main,Headquarters,Interest Expense,-5000.0,Manual
+TXN-2025-08-169,2025-08-05,2025-08,Actual,4000,4000,Main,Headquarters,Sales – Sales – Produce,57000.0,POS
+TXN-2025-08-170,2025-08-06,2025-08,Actual,5000,5000,Main,Headquarters,COGS – COGS – Produce,-38190.0,Inventory
+TXN-2025-08-171,2025-08-05,2025-08,Actual,4010,4010,Main,Headquarters,Sales – Sales – Meat & Seafood,79800.0,POS
+TXN-2025-08-172,2025-08-06,2025-08,Actual,5010,5010,Main,Headquarters,COGS – COGS – Meat & Seafood,-53466.0,Inventory
+TXN-2025-08-173,2025-08-05,2025-08,Actual,4020,4020,Main,Headquarters,Sales – Sales – Dairy & Eggs,45600.0,POS
+TXN-2025-08-174,2025-08-06,2025-08,Actual,5020,5020,Main,Headquarters,COGS – COGS – Dairy & Eggs,-30552.0,Inventory
+TXN-2025-08-175,2025-08-05,2025-08,Actual,4030,4030,Main,Headquarters,Sales – Sales – Bakery,34200.0,POS
+TXN-2025-08-176,2025-08-06,2025-08,Actual,5030,5030,Main,Headquarters,COGS – COGS – Bakery,-22914.0,Inventory
+TXN-2025-08-177,2025-08-05,2025-08,Actual,4040,4040,Main,Headquarters,Sales – Sales – Deli & Prepared,28500.0,POS
+TXN-2025-08-178,2025-08-06,2025-08,Actual,5040,5040,Main,Headquarters,COGS – COGS – Deli & Prepared,-19095.0,Inventory
+TXN-2025-08-179,2025-08-05,2025-08,Actual,4050,4050,Main,Headquarters,Sales – Sales – Frozen Foods,39900.0,POS
+TXN-2025-08-180,2025-08-06,2025-08,Actual,5050,5050,Main,Headquarters,COGS – COGS – Frozen Foods,-26733.0,Inventory
+TXN-2025-08-181,2025-08-05,2025-08,Actual,4060,4060,Main,Headquarters,Sales – Sales – Beverages & Snacks,51300.0,POS
+TXN-2025-08-182,2025-08-06,2025-08,Actual,5060,5060,Main,Headquarters,COGS – COGS – Beverages & Snacks,-34371.0,Inventory
+TXN-2025-08-183,2025-08-05,2025-08,Actual,4070,4070,Main,Headquarters,Sales – Sales – Non‑Food,17100.0,POS
+TXN-2025-08-184,2025-08-06,2025-08,Actual,5070,5070,Main,Headquarters,COGS – COGS – Non‑Food,-11457.0,Inventory
+TXN-2025-08-185,2025-08-26,2025-08,Actual,6200,6200,Main,Headquarters,Salaries & Wages,-38000.0,Payroll
+TXN-2025-08-186,2025-08-26,2025-08,Actual,6210,6210,Main,Headquarters,Payroll Taxes,-38000.0,Payroll
+TXN-2025-08-187,2025-08-26,2025-08,Actual,6220,6220,Main,Headquarters,Employee Benefits,-38000.0,Payroll
+TXN-2025-08-188,2025-08-02,2025-08,Actual,6300,6300,Main,Headquarters,Rent Expense,-16335.0,Manual
+TXN-2025-08-189,2025-08-11,2025-08,Actual,6310,6310,Main,Headquarters,Utilities,-11400.0,Utility
+TXN-2025-08-190,2025-08-16,2025-08,Actual,6100,6100,Main,Headquarters,Advertising & Marketing,-5700.0,Marketing
+TXN-2025-08-191,2025-08-13,2025-08,Actual,6340,6340,Main,Headquarters,Insurance,-380.0,Insurance
+TXN-2025-08-192,2025-08-29,2025-08,Actual,7000,7000,Main,Headquarters,Interest Expense,-5000.0,Manual
