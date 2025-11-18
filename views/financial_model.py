@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass
+from datetime import date
 
 import altair as alt
 import numpy as np
@@ -33,17 +34,28 @@ class ScenarioInputs:
     label: str
     scenario_type: str
     stress_case: str
-    start_revenue: float
     initial_cash: float
     revenue_growth: float
     gross_margin: float
     opex_ratio: float
     capex_ratio: float
     owner_draw: float
-    financing_injection: float
+    equity_injection: float
+    construction_start: date
+    construction_duration_months: int
+    family_basket_value: float
+    families_per_month: float
+    loan_amount: float
+    loan_rate: float
+    loan_term_years: int
 
 
-def collect_scenario_inputs(title: str, key_prefix: str, defaults: dict) -> ScenarioInputs:
+def collect_scenario_inputs(
+    title: str,
+    key_prefix: str,
+    defaults: dict,
+    model_start_date: date,
+) -> ScenarioInputs:
     st.markdown(f"#### {title}")
     scenario_type = st.selectbox(
         "Business approach",
@@ -58,15 +70,19 @@ def collect_scenario_inputs(title: str, key_prefix: str, defaults: dict) -> Scen
         help="Quickly apply optimistic or conservative adjustments to the inputs below.",
     )
 
-    default_start = 80000.0 if scenario_type == "Acquire Existing Business" else 30000.0
     col_a, col_b = st.columns(2)
     with col_a:
-        start_revenue = st.number_input(
-            "Initial Monthly Revenue",
-            min_value=10000.0,
-            value=default_start,
-            step=5000.0,
-            key=f"{key_prefix}_start_rev",
+        construction_start = st.date_input(
+            "Construction Start",
+            value=model_start_date,
+            key=f"{key_prefix}_construction_start",
+        )
+        construction_duration = st.number_input(
+            "Construction Duration (months)",
+            min_value=1,
+            max_value=48,
+            value=12 if scenario_type == "Start from Scratch" else 6,
+            key=f"{key_prefix}_construction_duration",
         )
         initial_cash = st.number_input(
             "Initial Cash on Hand",
@@ -75,24 +91,40 @@ def collect_scenario_inputs(title: str, key_prefix: str, defaults: dict) -> Scen
             step=25000.0,
             key=f"{key_prefix}_cash",
         )
-        owner_draw = st.number_input(
-            "Monthly Owner Draw",
-            min_value=0.0,
-            value=float(defaults["owner_draw"]),
-            step=1000.0,
-            key=f"{key_prefix}_owner_draw",
-        )
     with col_b:
-        financing_injection = st.number_input(
-            "Upfront Financing Injection",
-            min_value=0.0,
-            value=0.0,
-            step=25000.0,
-            key=f"{key_prefix}_financing",
-            help="Optional one-time capital added at the start of the projection.",
+        family_basket_value = st.number_input(
+            "Family Basket Value (monthly)",
+            min_value=100.0,
+            value=450.0,
+            step=25.0,
+            key=f"{key_prefix}_basket",
+        )
+        families_per_month = st.number_input(
+            "New Families Added per Month",
+            min_value=10.0,
+            value=250.0 if scenario_type == "Acquire Existing Business" else 120.0,
+            step=10.0,
+            key=f"{key_prefix}_families",
         )
 
-    slider_col1, slider_col2 = st.columns(2)
+    owner_draw = st.number_input(
+        "Monthly Owner Draw",
+        min_value=0.0,
+        value=float(defaults["owner_draw"]),
+        step=1000.0,
+        key=f"{key_prefix}_owner_draw",
+    )
+    equity_injection = st.number_input(
+        "Equity Injection (upfront)",
+        min_value=0.0,
+        value=100000.0,
+        step=25000.0,
+        key=f"{key_prefix}_equity",
+        help="Optional one-time equity contribution at model start.",
+    )
+
+    st.markdown("###### Operating assumptions")
+    slider_col1, slider_col2, slider_col3 = st.columns(3)
     with slider_col1:
         revenue_growth = st.slider(
             "Annual Revenue Growth Rate",
@@ -102,6 +134,7 @@ def collect_scenario_inputs(title: str, key_prefix: str, defaults: dict) -> Scen
             step=0.01,
             key=f"{key_prefix}_growth",
         )
+    with slider_col2:
         gross_margin = st.slider(
             "Gross Margin",
             min_value=0.1,
@@ -110,7 +143,7 @@ def collect_scenario_inputs(title: str, key_prefix: str, defaults: dict) -> Scen
             step=0.01,
             key=f"{key_prefix}_margin",
         )
-    with slider_col2:
+    with slider_col3:
         opex_ratio = st.slider(
             "Operating Expenses (% of revenue)",
             min_value=0.1,
@@ -119,13 +152,44 @@ def collect_scenario_inputs(title: str, key_prefix: str, defaults: dict) -> Scen
             step=0.01,
             key=f"{key_prefix}_opex",
         )
-        capex_ratio = st.slider(
-            "Capex (% of revenue)",
+
+    capex_ratio = st.slider(
+        "Capex (% of revenue)",
+        min_value=0.0,
+        max_value=0.2,
+        value=float(defaults["capex"]),
+        step=0.005,
+        key=f"{key_prefix}_capex",
+    )
+
+    st.markdown("###### Debt assumptions")
+    debt_col1, debt_col2, debt_col3 = st.columns(3)
+    with debt_col1:
+        loan_amount = st.number_input(
+            "Construction Loan Amount",
             min_value=0.0,
-            max_value=0.2,
-            value=float(defaults["capex"]),
+            value=1500000.0 if scenario_type == "Acquire Existing Business" else 1000000.0,
+            step=50000.0,
+            key=f"{key_prefix}_loan_amount",
+        )
+    with debt_col2:
+        loan_rate = st.slider(
+            "Loan Rate (annual %)",
+            min_value=0.0,
+            max_value=0.18,
+            value=0.08,
             step=0.005,
-            key=f"{key_prefix}_capex",
+            format="%.3f",
+            key=f"{key_prefix}_loan_rate",
+        )
+    with debt_col3:
+        loan_term_years = st.number_input(
+            "Loan Term (years)",
+            min_value=1,
+            max_value=20,
+            value=10,
+            step=1,
+            key=f"{key_prefix}_loan_term",
         )
 
     label = f"{scenario_type} ({stress_case})"
@@ -133,14 +197,20 @@ def collect_scenario_inputs(title: str, key_prefix: str, defaults: dict) -> Scen
         label=label,
         scenario_type=scenario_type,
         stress_case=stress_case,
-        start_revenue=start_revenue,
         initial_cash=initial_cash,
         revenue_growth=revenue_growth,
         gross_margin=gross_margin,
         opex_ratio=opex_ratio,
         capex_ratio=capex_ratio,
         owner_draw=owner_draw,
-        financing_injection=financing_injection,
+        equity_injection=equity_injection,
+        construction_start=construction_start,
+        construction_duration_months=int(construction_duration),
+        family_basket_value=family_basket_value,
+        families_per_month=families_per_month,
+        loan_amount=loan_amount,
+        loan_rate=loan_rate,
+        loan_term_years=int(loan_term_years),
     )
 
 
@@ -158,10 +228,15 @@ def format_metric_value(value: float | None, kind: str) -> str:
     return f"{value:.2f}"
 
 
+def _months_between(start: pd.Timestamp, end: pd.Timestamp) -> int:
+    return (end.year - start.year) * 12 + (end.month - start.month)
+
+
 def run_projection(
     inputs: ScenarioInputs,
     projection_months: int,
     cash_safety_months: float,
+    model_start: pd.Timestamp,
 ) -> dict:
     preset = STRESS_CASES[inputs.stress_case]
     growth = min(inputs.revenue_growth * preset["growth"], 0.9)
@@ -169,21 +244,58 @@ def run_projection(
     opex_ratio = max(min(inputs.opex_ratio * preset["opex"], 0.95), 0.05)
 
     months = pd.date_range(
-        start=pd.to_datetime("2026-01-01"),
+        start=model_start,
         periods=projection_months,
         freq="MS",
     )
     df = pd.DataFrame({"month": months})
     monthly_growth = (1 + growth) ** (1 / 12) - 1
-    df["Revenue"] = inputs.start_revenue * (1 + monthly_growth) ** np.arange(projection_months)
+
+    construction_start = pd.Timestamp(inputs.construction_start).replace(day=1)
+    launch_offset = max(
+        0,
+        _months_between(model_start, construction_start) + inputs.construction_duration_months,
+    )
+    families = np.zeros(projection_months)
+    basket_series = np.zeros(projection_months)
+    post_launch_idx = np.arange(projection_months) - launch_offset
+    active_mask = post_launch_idx >= 0
+    families[active_mask] = inputs.families_per_month * (post_launch_idx[active_mask] + 1)
+    basket_series[active_mask] = inputs.family_basket_value * (1 + monthly_growth) ** post_launch_idx[active_mask]
+
+    df["Families Active"] = families
+    df["Revenue"] = families * basket_series
     df["COGS"] = -df["Revenue"] * (1 - gross_margin)
     df["Operating Expenses"] = -df["Revenue"] * opex_ratio
     df["Capex"] = -df["Revenue"] * inputs.capex_ratio
     df["Owner Draw"] = -inputs.owner_draw
     df["Financing"] = 0.0
-    df.loc[df.index[0], "Financing"] = inputs.financing_injection
+    df.loc[df.index[0], "Financing"] += inputs.equity_injection
+    loan_draw_idx = min(max(_months_between(model_start, construction_start), 0), projection_months - 1)
+    if inputs.loan_amount > 0:
+        df.loc[loan_draw_idx, "Financing"] += inputs.loan_amount
+
+    loan_rate_monthly = inputs.loan_rate / 12 if inputs.loan_rate else 0.0
+    term_months = max(1, inputs.loan_term_years * 12)
+    if inputs.loan_amount > 0:
+        if loan_rate_monthly == 0:
+            amort_payment = inputs.loan_amount / term_months
+        else:
+            amort_payment = inputs.loan_amount * loan_rate_monthly / (1 - (1 + loan_rate_monthly) ** (-term_months))
+        interest_only_payment = inputs.loan_amount * loan_rate_monthly
+        debt_service = np.where(
+            np.arange(projection_months) < launch_offset,
+            interest_only_payment,
+            amort_payment,
+        )
+    else:
+        debt_service = np.zeros(projection_months)
+    df["Debt Service"] = -debt_service
+
     df["EBITDA"] = df["Revenue"] + df["COGS"] + df["Operating Expenses"]
-    df["Net Cash Flow"] = df["EBITDA"] + df["Capex"] + df["Owner Draw"] + df["Financing"]
+    df["Net Cash Flow"] = (
+        df["EBITDA"] + df["Capex"] + df["Owner Draw"] + df["Financing"] + df["Debt Service"]
+    )
     df["Cumulative Cash"] = inputs.initial_cash + df["Net Cash Flow"].cumsum()
     df["EBITDA Delta"] = df["EBITDA"].diff().fillna(0.0)
     df["Scenario"] = inputs.label
@@ -192,6 +304,7 @@ def run_projection(
     final_cash = df["Cumulative Cash"].iloc[-1]
     annual_recurring_revenue = df["Revenue"].iloc[-1] * 12
     avg_monthly_burn = df["Net Cash Flow"].mean()
+    avg_debt_service = df["Debt Service"].mean()
 
     below_zero = df[df["Cumulative Cash"] < 0]
     if below_zero.empty:
@@ -217,6 +330,7 @@ def run_projection(
         ("Minimum Cash", min_cash, "currency", "Lowest point"),
         ("Annual Recurring Revenue", annual_recurring_revenue, "currency", "Year-end ARR"),
         ("Avg Monthly Burn", avg_monthly_burn, "currency", "/month"),
+        ("Avg Debt Service", avg_debt_service, "currency", "/month"),
         ("Runway", runway_months, "months", f"Runs dry: {runway_label}"),
         ("Safety Buffer", safety_buffer, "months", f"Target: {cash_safety_months:.1f} mo"),
         ("Payback Period", payback_months, "months-with-na", "When cumulative cash exceeds starting cash"),
@@ -276,6 +390,13 @@ def render() -> None:
     )
     st.caption("Baseline assumptions pulled from `data/model_assumptions.csv`. Adjust and compare scenarios below.")
 
+    model_start_date = st.date_input(
+        "Model Start Month",
+        value=date(2026, 1, 1),
+        help="Financial projections begin on this month.",
+    )
+    model_start = pd.Timestamp(model_start_date).replace(day=1)
+
     projection_months = st.slider(
         "Projection Horizon (months)",
         min_value=12,
@@ -284,15 +405,25 @@ def render() -> None:
         value=36,
     )
 
-    primary_inputs = collect_scenario_inputs("Primary Scenario", "primary", defaults)
-    primary_result = run_projection(primary_inputs, projection_months, cash_safety_months)
+    primary_inputs = collect_scenario_inputs("Primary Scenario", "primary", defaults, model_start_date)
+    primary_result = run_projection(primary_inputs, projection_months, cash_safety_months, model_start)
 
     comparison_result = None
     with st.expander("Add Comparison Scenario", expanded=False):
         enable_comparison = st.checkbox("Enable comparison scenario", value=False)
         if enable_comparison:
-            comparison_inputs = collect_scenario_inputs("Comparison Scenario", "comparison", defaults)
-            comparison_result = run_projection(comparison_inputs, projection_months, cash_safety_months)
+            comparison_inputs = collect_scenario_inputs(
+                "Comparison Scenario",
+                "comparison",
+                defaults,
+                model_start_date,
+            )
+            comparison_result = run_projection(
+                comparison_inputs,
+                projection_months,
+                cash_safety_months,
+                model_start,
+            )
 
     display_metrics(primary_result, primary_inputs.label)
     if comparison_result:
@@ -315,7 +446,9 @@ def render() -> None:
     st.altair_chart(cash_chart, use_container_width=True)
 
     st.subheader("Revenue & Cost Mix")
-    comp_df = primary_result["data"][["month", "Revenue", "COGS", "Operating Expenses", "Capex", "Owner Draw"]].copy()
+    comp_df = primary_result["data"][
+        ["month", "Revenue", "COGS", "Operating Expenses", "Capex", "Owner Draw", "Debt Service"]
+    ].copy()
     comp_long = comp_df.melt("month", var_name="Component", value_name="Amount")
     area_chart = (
         alt.Chart(comp_long)
@@ -333,12 +466,14 @@ def render() -> None:
     display_df["month"] = display_df["month"].dt.strftime("%Y-%m")
     table_cols = [
         "month",
+        "Families Active",
         "Revenue",
         "COGS",
         "Operating Expenses",
         "Capex",
         "Owner Draw",
         "Financing",
+        "Debt Service",
         "EBITDA",
         "EBITDA Delta",
         "Net Cash Flow",
