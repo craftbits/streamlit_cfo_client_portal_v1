@@ -1,7 +1,7 @@
 """
 Layout and UI helpers inspired by the Streamlit Executive Portal.
 
-The shared CSS mirrors the clean Contour/Beitel look: generous whitespace,
+The shared CSS mirrors the clean Contour-style look: generous whitespace,
 rounded metric cards and a tidy sidebar. Consolidating these helpers keeps
 the visual language consistent across pages.
 """
