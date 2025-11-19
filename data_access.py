@@ -54,6 +54,7 @@ MODEL_DRIVER_KEYS = [
     "inflation_food_cost",
     "discount_rate_npv",
     "cash_runway_target_months",
+    "owner_draw_monthly",
 ]
 
 CASE_TO_COLUMN = {

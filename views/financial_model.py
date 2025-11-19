@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-from data_access import get_model_assumptions, load_model_assumptions
+from data_access import get_model_assumptions
 from layout import format_currency, metric_card, page_header, table_download_link
 
 
@@ -392,17 +392,15 @@ def scenario_export_dataframe(results: list[pd.DataFrame]) -> pd.DataFrame:
     return export_df
 
 
-def render() -> None:
-    assumptions_df = load_model_assumptions().set_index("assumption_key")
-    defaults = {
-        "growth": float(assumptions_df.loc["revenue_growth_rate_yoy", "base_value"]),
-        "margin": float(assumptions_df.loc["gross_margin_target", "base_value"]),
-        "opex": float(assumptions_df.loc["opex_as_percent_revenue", "base_value"]),
-        "capex": float(assumptions_df.loc["capex_as_percent_revenue", "base_value"]),
-        "owner_draw": float(assumptions_df.loc["owner_draw_monthly", "base_value"]),
-    }
-    cash_safety_months = float(assumptions_df.loc["cash_safety_months", "base_value"])
+def _driver_value(drivers: dict[str, float], key: str, fallback: float) -> float:
+    value = drivers.get(key)
+    try:
+        return float(value) if value is not None else fallback
+    except (TypeError, ValueError):
+        return fallback
 
+
+def render() -> None:
     st.sidebar.markdown("### Model Controls")
     scenario_focus = st.sidebar.selectbox(
         "Scenario",
@@ -418,14 +416,14 @@ def render() -> None:
     st.session_state["assumption_case"] = case
 
     assumption_drivers = get_model_assumptions(case=case)
-    if assumption_drivers.get("inflation_general") is not None:
-        defaults["growth"] = float(assumption_drivers["inflation_general"])
-    if assumption_drivers.get("gross_margin_target") is not None:
-        defaults["margin"] = float(assumption_drivers["gross_margin_target"])
-    if assumption_drivers.get("store_payroll_pct_sales") is not None:
-        defaults["opex"] = float(assumption_drivers["store_payroll_pct_sales"])
-    if assumption_drivers.get("repairs_maintenance_pct_sales") is not None:
-        defaults["capex"] = float(assumption_drivers["repairs_maintenance_pct_sales"])
+    defaults = {
+        "growth": _driver_value(assumption_drivers, "inflation_general", 0.15),
+        "margin": _driver_value(assumption_drivers, "gross_margin_target", 0.33),
+        "opex": _driver_value(assumption_drivers, "store_payroll_pct_sales", 0.35),
+        "capex": _driver_value(assumption_drivers, "repairs_maintenance_pct_sales", 0.04),
+        "owner_draw": _driver_value(assumption_drivers, "owner_draw_monthly", 10000.0),
+    }
+    cash_safety_months = _driver_value(assumption_drivers, "cash_runway_target_months", 6.0)
 
     register_defaults: dict[str, float] = {}
     if assumption_drivers.get("avg_basket_size_y1") is not None:
@@ -450,7 +448,7 @@ def render() -> None:
         "and optional scenario comparisons.",
         icon="📈",
     )
-    st.caption("Baseline assumptions pulled from `data/model_assumptions.csv`. Adjust and compare scenarios below.")
+    st.caption("Baseline assumptions pulled from `data/assumptions_register.csv`. Adjust and compare scenarios below.")
 
     model_start_date = st.date_input(
         "Model Start Month",
