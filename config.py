@@ -44,6 +44,7 @@ PAGE_ROUTES = {
     "Cash Flow": "cash_flow",
     "Ratio Analysis": "ratio_analysis",
     "Financial Model": "financial_model",
+    "Assumptions": "assumptions",
     # Placeholders for future sections. They will simply display a
     # coming‑soon message until implemented.
     "Tools": None,
@@ -59,7 +60,10 @@ PAGE_ROUTES = {
 NAV_SECTIONS: list[tuple[str, list[str]]] = [
     ("Overview", ["Home"]),
     ("Management Reporting", ["Financial Statements", "Comparison", "Review"]),
-    ("Performance & Planning", ["Cash Flow", "Ratio Analysis", "Financial Model"]),
+    (
+        "Performance & Planning",
+        ["Cash Flow", "Ratio Analysis", "Financial Model", "Assumptions"],
+    ),
     ("Knowledge Base", ["Tools", "Resources", "Links", "Directories", "Reference"]),
 ]
 

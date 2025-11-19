@@ -107,9 +107,10 @@ def collect_scenario_inputs(
         basket_default = register_defaults.get("family_basket_value", 450.0)
         family_basket_value = st.number_input(
             "Family Basket Value (monthly)",
-            min_value=100.0,
+            min_value=0.0,
             value=float(basket_default),
-            step=25.0,
+            step=10.0,
+            help="Average spend per family per month (allows near-zero ramp).",
             key=f"{key_prefix}_basket",
         )
         families_default = register_defaults.get("families_per_month")
@@ -117,9 +118,10 @@ def collect_scenario_inputs(
             families_default = 250.0 if scenario_type == "Acquire Existing Business" else 120.0
         families_per_month = st.number_input(
             "New Families Added per Month",
-            min_value=10.0,
+            min_value=0.0,
             value=float(families_default),
             step=10.0,
+            help="Net new households acquired each month.",
             key=f"{key_prefix}_families",
         )
 
@@ -135,9 +137,9 @@ def collect_scenario_inputs(
         "Equity Injection (upfront)",
         min_value=0.0,
         value=float(equity_default),
-        step=25000.0,
-        key=f"{key_prefix}_equity",
+        step=10000.0,
         help="Optional one-time equity contribution at model start.",
+        key=f"{key_prefix}_equity",
     )
 
     st.markdown("###### Operating assumptions")
@@ -189,7 +191,8 @@ def collect_scenario_inputs(
             "Construction Loan Amount",
             min_value=0.0,
             value=float(loan_amount_default),
-            step=50000.0,
+            step=25000.0,
+            help="Commitment available to draw during build-out.",
             key=f"{key_prefix}_loan_amount",
         )
     with debt_col2:
