@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-from data_access import load_model_assumptions
+from data_access import get_model_assumptions, load_model_assumptions
 from layout import format_currency, metric_card, page_header, table_download_link
 
 
@@ -50,16 +50,27 @@ class ScenarioInputs:
     loan_term_years: int
 
 
+SCENARIO_OPTIONS = ["Acquire Existing Business", "Start from Scratch"]
+
+
 def collect_scenario_inputs(
     title: str,
     key_prefix: str,
     defaults: dict,
     model_start_date: date,
+    default_scenario_type: str,
+    register_defaults: dict[str, float] | None = None,
 ) -> ScenarioInputs:
     st.markdown(f"#### {title}")
+    scenario_index = (
+        SCENARIO_OPTIONS.index(default_scenario_type)
+        if default_scenario_type in SCENARIO_OPTIONS
+        else 0
+    )
     scenario_type = st.selectbox(
         "Business approach",
-        ["Acquire Existing Business", "Start from Scratch"],
+        SCENARIO_OPTIONS,
+        index=scenario_index,
         key=f"{key_prefix}_scenario",
     )
     stress_case = st.radio(
@@ -91,18 +102,23 @@ def collect_scenario_inputs(
             step=25000.0,
             key=f"{key_prefix}_cash",
         )
+    register_defaults = register_defaults or {}
     with col_b:
+        basket_default = register_defaults.get("family_basket_value", 450.0)
         family_basket_value = st.number_input(
             "Family Basket Value (monthly)",
             min_value=100.0,
-            value=450.0,
+            value=float(basket_default),
             step=25.0,
             key=f"{key_prefix}_basket",
         )
+        families_default = register_defaults.get("families_per_month")
+        if not families_default or families_default <= 0:
+            families_default = 250.0 if scenario_type == "Acquire Existing Business" else 120.0
         families_per_month = st.number_input(
             "New Families Added per Month",
             min_value=10.0,
-            value=250.0 if scenario_type == "Acquire Existing Business" else 120.0,
+            value=float(families_default),
             step=10.0,
             key=f"{key_prefix}_families",
         )
@@ -114,10 +130,11 @@ def collect_scenario_inputs(
         step=1000.0,
         key=f"{key_prefix}_owner_draw",
     )
+    equity_default = register_defaults.get("equity_injection", 100000.0)
     equity_injection = st.number_input(
         "Equity Injection (upfront)",
         min_value=0.0,
-        value=100000.0,
+        value=float(equity_default),
         step=25000.0,
         key=f"{key_prefix}_equity",
         help="Optional one-time equity contribution at model start.",
@@ -165,19 +182,23 @@ def collect_scenario_inputs(
     st.markdown("###### Debt assumptions")
     debt_col1, debt_col2, debt_col3 = st.columns(3)
     with debt_col1:
+        loan_amount_default = register_defaults.get("loan_amount")
+        if loan_amount_default is None or loan_amount_default <= 0:
+            loan_amount_default = 1500000.0 if scenario_type == "Acquire Existing Business" else 1000000.0
         loan_amount = st.number_input(
             "Construction Loan Amount",
             min_value=0.0,
-            value=1500000.0 if scenario_type == "Acquire Existing Business" else 1000000.0,
+            value=float(loan_amount_default),
             step=50000.0,
             key=f"{key_prefix}_loan_amount",
         )
     with debt_col2:
+        loan_rate_default = register_defaults.get("loan_rate", 0.08)
         loan_rate = st.slider(
             "Loan Rate (annual %)",
             min_value=0.0,
             max_value=0.18,
-            value=0.08,
+            value=float(loan_rate_default),
             step=0.005,
             format="%.3f",
             key=f"{key_prefix}_loan_rate",
@@ -382,6 +403,47 @@ def render() -> None:
     }
     cash_safety_months = float(assumptions_df.loc["cash_safety_months", "base_value"])
 
+    st.sidebar.markdown("### Model Controls")
+    scenario_focus = st.sidebar.selectbox(
+        "Scenario",
+        ["Build New", "Buy Existing"],
+        key="model_scenario",
+    )
+    case = st.sidebar.radio(
+        "Case",
+        ["Conservative", "Likely", "Aggressive"],
+        index=1,
+        key="model_case",
+    )
+    st.session_state["assumption_case"] = case
+
+    assumption_drivers = get_model_assumptions(case=case)
+    if assumption_drivers.get("inflation_general") is not None:
+        defaults["growth"] = float(assumption_drivers["inflation_general"])
+    if assumption_drivers.get("gross_margin_target") is not None:
+        defaults["margin"] = float(assumption_drivers["gross_margin_target"])
+    if assumption_drivers.get("store_payroll_pct_sales") is not None:
+        defaults["opex"] = float(assumption_drivers["store_payroll_pct_sales"])
+    if assumption_drivers.get("repairs_maintenance_pct_sales") is not None:
+        defaults["capex"] = float(assumption_drivers["repairs_maintenance_pct_sales"])
+
+    register_defaults: dict[str, float] = {}
+    if assumption_drivers.get("avg_basket_size_y1") is not None:
+        register_defaults["family_basket_value"] = float(assumption_drivers["avg_basket_size_y1"])
+    households = assumption_drivers.get("market_households")
+    penetration_y1 = assumption_drivers.get("household_penetration_y1")
+    if households and penetration_y1:
+        register_defaults["families_per_month"] = float(households) * float(penetration_y1) / 12
+    if assumption_drivers.get("construction_loan_commitment") is not None:
+        register_defaults["loan_amount"] = float(assumption_drivers["construction_loan_commitment"])
+        register_defaults["equity_injection"] = float(assumption_drivers["construction_loan_commitment"]) * 0.1
+    if assumption_drivers.get("construction_rate_annual") is not None:
+        register_defaults["loan_rate"] = float(assumption_drivers["construction_rate_annual"])
+
+    default_scenario_type = (
+        "Start from Scratch" if scenario_focus == "Build New" else "Acquire Existing Business"
+    )
+
     page_header(
         "Financial Model & Scenario Planning",
         "Model cash runway and profitability with adjustable assumptions, stress cases, "
@@ -405,7 +467,14 @@ def render() -> None:
         value=36,
     )
 
-    primary_inputs = collect_scenario_inputs("Primary Scenario", "primary", defaults, model_start_date)
+    primary_inputs = collect_scenario_inputs(
+        "Primary Scenario",
+        "primary",
+        defaults,
+        model_start_date,
+        default_scenario_type,
+        register_defaults,
+    )
     primary_result = run_projection(primary_inputs, projection_months, cash_safety_months, model_start)
 
     comparison_result = None
@@ -417,6 +486,8 @@ def render() -> None:
                 "comparison",
                 defaults,
                 model_start_date,
+                default_scenario_type,
+                register_defaults,
             )
             comparison_result = run_projection(
                 comparison_inputs,
